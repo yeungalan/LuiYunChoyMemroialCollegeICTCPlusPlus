@@ -1,2 +1,2 @@
-# LuiYunChoyMemroialCollegeICTCPlusPlus
-LYCMC HomeWork
+# LuiYunChoyMemroialCollegeICTCPlusPlus / HKUSpaceCLabWork
+Lab Work
