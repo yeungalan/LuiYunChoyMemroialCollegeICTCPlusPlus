@@ -15,17 +15,19 @@ struct Item{
 	char deliverystatus[40];
 };
 
+void DocumentWriter(char[255],struct Item dataArray[50]);
 int chardatatypeschecking(char[]);
 
 int main(){
+	struct Item Arr_Item[50] = {{0}};
+	
 	int TempCharArrayCounterForLastThreeItems = 0;
 	int flag = 1,counter[5],IsContinueCharInput = 0;
-	struct Item Arr_Item[50];
 	counter[1] = 0;
 	counter[2] = 0;
 	counter[3] = 0;
 	
-	printf("███████████████████████ CCIT4020-ICP-GroupProject ███████████████████████\n");
+	printf("¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i CCIT4020-ICP-GroupProject ¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i\n");
 	printf("\n HKUSPACE Inventory Management and Record System\n Powered by Yeung Ho Lun(20093247)\n Add new item(s):\n");
 	printf("\n\n\n");	
 	printf("Please enter 1) Record number, 2) Item name, 3) Item number, 4) Category, 5) Quantity 6) Weight 7) Recipient 8) Final Destination, and 9) Delivery status:\n");
@@ -98,8 +100,8 @@ int main(){
 	printf("Recipient : 		%s \n",Arr_Item[0].recipient);
 	printf("Final destination : 	%s \n",Arr_Item[0].finaldestination);
 	printf("Delivery status : 	%s \n",Arr_Item[0].deliverystatus);
-	
-
+	system("PAUSE");
+	DocumentWriter("stock.txt",Arr_Item);
 }
 
 
@@ -128,3 +130,25 @@ int chardatatypeschecking(char chararray[]){
 		return 3; //char
 	}
 };
+
+void DocumentWriter(char filename[255],struct Item dataArray[50]){
+	int i;
+	FILE *outFILE;
+	outFILE = fopen(filename,"w");
+	for(i=0;i<50;i++){
+		if(dataArray[i].recordnumber != '\0'){
+			fprintf(outFILE,"%d\n",dataArray[i].recordnumber);
+			fprintf(outFILE,"%s\n",dataArray[i].name);
+			fprintf(outFILE,"%d\n",dataArray[i].itemnumber);
+			fprintf(outFILE,"%s\n",dataArray[i].category);
+			fprintf(outFILE,"%d\n",dataArray[i].quantity);
+			fprintf(outFILE,"%.1f kg\n",dataArray[i].weight);
+			fprintf(outFILE,"%s\n",dataArray[i].recipient);
+			fprintf(outFILE,"%s\n",dataArray[i].finaldestination);
+			fprintf(outFILE,"%s\n\n",dataArray[i].deliverystatus);
+		}
+		
+	}
+	
+	fclose(outFILE);
+}
