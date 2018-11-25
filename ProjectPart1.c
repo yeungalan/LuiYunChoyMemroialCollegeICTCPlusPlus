@@ -15,11 +15,16 @@ struct Item{
 	char deliverystatus[40];
 };
 
+void DocumentReader(char[255],struct Item dataArray[50],int *currentExistsRecordsNumber);
 void DocumentWriter(char[255],struct Item dataArray[50]);
 int chardatatypeschecking(char[]);
 
 int main(){
 	struct Item Arr_Item[50] = {{0}};
+	int currentExistsRecordsNumber;
+	DocumentReader("stock.txt",Arr_Item,&currentExistsRecordsNumber);
+	
+	printf("%d",currentExistsRecordsNumber);
 	
 	int TempCharArrayCounterForLastThreeItems = 0;
 	int flag = 1,counter[5],IsContinueCharInput = 0;
@@ -38,11 +43,11 @@ int main(){
 		switch(chardatatypeschecking(tmp)){
 			case 1:
 				if(counter[1] == 0){
-					Arr_Item[0].recordnumber = atoi(tmp);
+					Arr_Item[currentExistsRecordsNumber].recordnumber = atoi(tmp);
 				}else if(counter[1] == 1){
-					Arr_Item[0].itemnumber = atoi(tmp);	
+					Arr_Item[currentExistsRecordsNumber].itemnumber = atoi(tmp);	
 				}else if(counter[1] == 2){
-					Arr_Item[0].quantity = atoi(tmp);	
+					Arr_Item[currentExistsRecordsNumber].quantity = atoi(tmp);	
 				}
 				counter[1] += 1;
 				IsContinueCharInput = 0;
@@ -60,16 +65,16 @@ int main(){
 				}
 				strcat(tmp," ");
 				if(counter[3] == 1){
-					strcat(Arr_Item[0].name,tmp);
+					strcat(Arr_Item[currentExistsRecordsNumber].name,tmp);
 				}else if(counter[3] == 2){
-					strcat(Arr_Item[0].category,tmp);
+					strcat(Arr_Item[currentExistsRecordsNumber].category,tmp);
 				}else if(counter[3] == 3){
 					if(TempCharArrayCounterForLastThreeItems == 2){
 						counter[3] += 1;
 						TempCharArrayCounterForLastThreeItems = 0;
 					}
 					//printf("%d %s\n",TempCharArrayCounterForLastThreeItems,tmp);
-					strcat(Arr_Item[0].recipient,tmp);
+					strcat(Arr_Item[currentExistsRecordsNumber].recipient,tmp);
 					TempCharArrayCounterForLastThreeItems += 1;
 				}else if(counter[3] == 4){
 					if(TempCharArrayCounterForLastThreeItems == 2){
@@ -77,10 +82,10 @@ int main(){
 						TempCharArrayCounterForLastThreeItems = 0;
 					}
 					//printf("%d %s\n",TempCharArrayCounterForLastThreeItems,tmp);
-					strcat(Arr_Item[0].finaldestination,tmp);
+					strcat(Arr_Item[currentExistsRecordsNumber].finaldestination,tmp);
 					TempCharArrayCounterForLastThreeItems += 1;
 				}else if(counter[3] == 5){
-					strcat(Arr_Item[0].deliverystatus,tmp);
+					strcat(Arr_Item[currentExistsRecordsNumber].deliverystatus,tmp);
 					flag = 0;
 				}
 				//printf("%d %s\n",counter[3],tmp);
@@ -91,15 +96,15 @@ int main(){
 
 	/* yea this is the fucking debug unit, do not remove this fucking part */
 	printf(" \n \nThe input has been recognized by system, please check the input data integrity at here: \n");
-	printf("Record number :		%d \n",Arr_Item[0].recordnumber);
-	printf("Name : 			%s \n",Arr_Item[0].name);
-	printf("Item Number :		%d \n",Arr_Item[0].itemnumber);
-	printf("Category : 		%s \n",Arr_Item[0].category);
-	printf("Quantity : 		%d \n",Arr_Item[0].quantity);
-	printf("Weight : 		%f \n",Arr_Item[0].weight);
-	printf("Recipient : 		%s \n",Arr_Item[0].recipient);
-	printf("Final destination : 	%s \n",Arr_Item[0].finaldestination);
-	printf("Delivery status : 	%s \n",Arr_Item[0].deliverystatus);
+	printf("Record number :		%d \n",Arr_Item[currentExistsRecordsNumber].recordnumber);
+	printf("Name : 			%s \n",Arr_Item[currentExistsRecordsNumber].name);
+	printf("Item Number :		%d \n",Arr_Item[currentExistsRecordsNumber].itemnumber);
+	printf("Category : 		%s \n",Arr_Item[currentExistsRecordsNumber].category);
+	printf("Quantity : 		%d \n",Arr_Item[currentExistsRecordsNumber].quantity);
+	printf("Weight : 		%f \n",Arr_Item[currentExistsRecordsNumber].weight);
+	printf("Recipient : 		%s \n",Arr_Item[currentExistsRecordsNumber].recipient);
+	printf("Final destination : 	%s \n",Arr_Item[currentExistsRecordsNumber].finaldestination);
+	printf("Delivery status : 	%s \n",Arr_Item[currentExistsRecordsNumber].deliverystatus);
 	system("PAUSE");
 	DocumentWriter("stock.txt",Arr_Item);
 }
@@ -152,3 +157,61 @@ void DocumentWriter(char filename[255],struct Item dataArray[50]){
 	
 	fclose(outFILE);
 }
+
+
+void DocumentReader(char filename[255],struct Item dataArray[50],int *currentExistsRecordsNumber){
+	int arrayCOUNTER = 0,characterCOUNTER = 0,characterPOSITION = 0;
+	FILE *inFILE;
+	inFILE = fopen(filename,"r");
+	char ch,tmp[512];
+	while((ch = fgetc(inFILE)) != EOF){
+		if(ch == '\n'){
+			switch(characterCOUNTER){
+				case 0:
+					dataArray[arrayCOUNTER].recordnumber = atoi(tmp);
+					break;
+				case 1:
+					strcpy(dataArray[arrayCOUNTER].name,tmp);
+					break;
+				case 2:
+					dataArray[arrayCOUNTER].itemnumber = atoi(tmp);
+					break;
+				case 3:
+					strcpy(dataArray[arrayCOUNTER].category,tmp);
+					break;
+				case 4:
+					dataArray[arrayCOUNTER].quantity = atoi(tmp);
+					break;
+				case 5:
+					dataArray[arrayCOUNTER].weight = atof(tmp);
+					break;
+				case 6:
+					strcpy(dataArray[arrayCOUNTER].recipient,tmp);
+					break;
+				case 7:
+					strcpy(dataArray[arrayCOUNTER].finaldestination,tmp);
+					break;
+				case 8:
+					strcpy(dataArray[arrayCOUNTER].deliverystatus,tmp);
+					break;	
+			}
+			if(characterCOUNTER == 8){
+				arrayCOUNTER += 1;
+				characterCOUNTER = -1;
+			}else{
+				characterCOUNTER += 1;
+			}
+			characterPOSITION = 0;
+			memset(tmp, 0, sizeof(tmp));
+			
+		}else{
+			tmp[characterPOSITION] = ch;
+			characterPOSITION += 1;
+		}
+		
+	}
+	fclose(inFILE);
+
+	*currentExistsRecordsNumber = arrayCOUNTER;
+}
+
