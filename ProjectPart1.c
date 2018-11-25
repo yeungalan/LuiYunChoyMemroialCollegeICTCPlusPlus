@@ -54,7 +54,7 @@ int main(){
 				break;
 			case 2:
 				if(counter[2] == 0){
-					Arr_Item[0].weight = atof(tmp);
+					Arr_Item[currentExistsRecordsNumber].weight = atof(tmp);
 				}
 				counter[2] += 1;
 				IsContinueCharInput = 0;
