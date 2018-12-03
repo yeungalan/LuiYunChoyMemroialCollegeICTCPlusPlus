@@ -3,6 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 
+//  this is a struct for storing the core information
 struct Item{
 	int recordnumber;
 	char name[40];
@@ -22,16 +23,16 @@ int chardatatypeschecking(char[]);
 
 void modify()
 {
-	char buffer[40];
-	fflush(stdin);
-	system("CLS");
-	struct Item Arr_Item[50] = {{0}};
-	int currentExistsRecordsNumber;
-	DocumentReader("stock.txt",Arr_Item,&currentExistsRecordsNumber);
+	char buffer[40];//init var
+	fflush(stdin); //clean stdin
+	system("CLS"); //clean screen
+	struct Item Arr_Item[50] = {{0}}; //init var
+	int currentExistsRecordsNumber;//init var
+	DocumentReader("stock.txt",Arr_Item,&currentExistsRecordsNumber); // init data
 
-	int i, a, b, ynflag;
-	char yn;
-	printf(" CCIT4020-ICP-GroupProject\n");
+	int i, a, b, ynflag; //init var
+	char yn;//init var
+	printf(" CCIT4020-ICP-GroupProject\n"); //print std header and ask for input
 	printf("\n HKUSPACE Inventory Management and Record System\n Powered by Lai Wing Chung (20089713)\n Modify Item Record(s):\n");
 	printf("\n\n\n");
 	printf("Press 1 to update the existing item\n");
@@ -41,17 +42,20 @@ void modify()
 	printf("\n");
 	if(a==1)
 	{
+		//ask user want update which record
 	printf("Please enter the record number you want to update: ");
 	scanf("%d", &i);
 	printf("\n");
 	int existchecker = 0,exists = 0;
 	for(existchecker=0;existchecker<currentExistsRecordsNumber;existchecker++) { 
 		if(i==Arr_Item[existchecker].recordnumber){
+			//check if that user exits
 			exists = 1; 
 			break;
 		}
 	} 
 	if(exists == 1){
+		//if exists then print which item user want edit
 		printf("1:Item name 			 2:Item number \n");
 		printf("3:Category			 4:Quantity \n");
 		printf("5:Weight			 6:Recipient\n");
@@ -59,11 +63,14 @@ void modify()
 		printf("Select the required information to update: ");
 		scanf("%d", &b);
 		if(b > 8 || b < 1){
+			// check if invaild
 			printf("Wrong input number.\n");
 		}else{
+			//ask for update
 			printf("Please enter the updated information: ");
 			fflush(stdin);
-			gets(buffer);		
+			gets(buffer);
+			//base on user selection update speftic row		
 		    switch (b){
 		    	case 1:
 		    		strcpy(Arr_Item[existchecker].name,buffer);
@@ -91,6 +98,7 @@ void modify()
 					break;
 				}
 				
+				//clean stdin and tell user complete
 			fflush(stdin);
 			printf("Record: %d has been updated to %s.\n",Arr_Item[existchecker].recordnumber,buffer);
 			DocumentWriter("stock.txt",Arr_Item);

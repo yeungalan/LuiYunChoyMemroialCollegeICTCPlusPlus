@@ -3,6 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 
+//  this is a struct for storing the core information
 struct Item{
 	int recordnumber;
 	char name[40];
@@ -22,11 +23,12 @@ int chardatatypeschecking(char[]);
 
 int display(){
 	fflush(stdin);
-	system("CLS");
-	struct Item Arr_Item[50] = {{0}};
-	int currentExistsRecordsNumber;
-	DocumentReader("stock.txt",Arr_Item,&currentExistsRecordsNumber);
+	system("CLS"); // clean input
+	struct Item Arr_Item[50] = {{0}}; //init a empty array
+	int currentExistsRecordsNumber; // init var
+	DocumentReader("stock.txt",Arr_Item,&currentExistsRecordsNumber); //init data
 	
+	//std header
 	printf(" CCIT4020-ICP-GroupProject\n");
 	printf("\n HKUSPACE Inventory Management and Record System\n Powered by Cheng Hoi Ming (20089483)\n Display Item Record(s):\n");
 	printf("\n\n\n");
@@ -34,6 +36,7 @@ int display(){
 	int i=0;
 	for(i=0; i<currentExistsRecordsNumber; i++)
 	{
+		// print result
 		printf("Record %d out of %d\n",i+1,currentExistsRecordsNumber);
 		printf("Record number: 		%d\n", Arr_Item[i].recordnumber);
 		printf("Name: 			%s\n", Arr_Item[i].name);
@@ -47,7 +50,7 @@ int display(){
         printf("-----------\n\n");
 
 	}
-	system("PAUSE");
+	system("PAUSE"); //pause for wait user read to end
 	main();	
 }
 

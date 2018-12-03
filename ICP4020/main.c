@@ -3,6 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 
+//  this is a struct for storing the core information
 struct Item{
 	int recordnumber;
 	char name[40];
@@ -25,7 +26,8 @@ int main(int argc, char *argv[]) {
 	fflush(stdin);
 	int input;
 	do{
-		system("CLS");
+		system("CLS"); // clean screen
+		//print the UI
 		printf("\n			***	Welcome to HKUSPACE Inventory Managment and Record System	***\n");
 		printf("\n							***  1819S1  ***\n");
 		printf("\n			***	This system is developed by CCIT4020 Class No. CL-06 Group No.4 ***\n");
@@ -42,6 +44,7 @@ int main(int argc, char *argv[]) {
 		printf("\n8. Date of editing record:\n");
 		printf("\nWhat is your option (1-8)?");
 		scanf("%d",&input);
+		//redirct user to sutiable function
 		switch(input){
 			case 1:
 				AddNewItems();
@@ -68,15 +71,16 @@ int main(int argc, char *argv[]) {
 				DateofEditingRecord();
 				break;
 			default:
+				// if error
 				printf("Invaild Input.\n");
 				system("PAUSE");
 				break;
 		}
-	}while(input < 1 || input > 6);
+	}while(input < 1 || input > 8); // if error then input again
 	return 0;
 }
 
-
+//generic function , use for write the "database" stock.txt, accept args : (filename arg0 (string),item arg1 (struct Item))
 void DocumentWriter(char filename[255],struct Item dataArray[50]){
 	int i;
 	FILE *outFILE;
@@ -99,7 +103,7 @@ void DocumentWriter(char filename[255],struct Item dataArray[50]){
 	fclose(outFILE);
 }
 
-
+//generic function , use for read the "database" stock.txt, accept args : (filename arg0 (string),item arg1 (struct Item),number of items arg2 (int))
 void DocumentReader(char filename[255],struct Item dataArray[50],int *currentExistsRecordsNumber){
 	int arrayCOUNTER = 0,characterCOUNTER = 0,characterPOSITION = 0;
 	FILE *inFILE;
@@ -156,9 +160,10 @@ void DocumentReader(char filename[255],struct Item dataArray[50],int *currentExi
 	*currentExistsRecordsNumber = arrayCOUNTER;
 }
 
+//generic function , use for handle error (message arg0 (string), qut 0 for not quit, 1 for quit arg1 (int))
 void ErrorHandler(char message[512],int qut){
-	system("color 4F");
-	system("CLS");
+	system("color 4F"); // chaneg colour
+	system("CLS"); // clean screen
 	printf("============================================\n");
 	printf("ERROR!!! Encountered error during execution.\n");
 	printf("Description :%s\n",message);
@@ -168,9 +173,9 @@ void ErrorHandler(char message[512],int qut){
 		printf("Press anykey to return.\n",message);
 	}
 	printf("============================================\n");
-	system("@PAUSE");
-	system("color 07");
-	system("CLS");	
+	system("@PAUSE"); // show pause text
+	system("color 07"); // restore color
+	system("CLS");	 // clean again
 	if(qut == 1){
 		exit(1);
 	}

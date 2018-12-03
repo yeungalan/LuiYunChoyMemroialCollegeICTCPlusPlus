@@ -3,6 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 
+//  this is a struct for storing the core information
 struct Item{
 	int recordnumber;
 	char name[40];
@@ -19,11 +20,12 @@ void DocumentReader(char[255],struct Item dataArray[50],int *currentExistsRecord
 	
 void search()  
 {
-	system("CLS");
-	struct Item Arr_Item[50] = {{0}};
-	int currentExistsRecordsNumber;
+	system("CLS"); // clean screen
+	struct Item Arr_Item[50] = {{0}}; // create a array with empty values inside
+	int currentExistsRecordsNumber; // current items number , will store value after documentreader()
 	DocumentReader("stock.txt",Arr_Item,&currentExistsRecordsNumber);
-
+	
+	//declare
 	int i,a,b; 
 	char c; 
 	char _name[40]; 
@@ -33,6 +35,7 @@ void search()
 
 	while(1) 
 	{ 
+		//print standard header and asking user
 		system("CLS");
 		printf(" CCIT4020-ICP-GroupProject\n");
 		printf("\n HKUSPACE Inventory Management and Record System\n Powered by Ho Chun Pong (20057174)\n Search Item Information:\n");
@@ -44,15 +47,18 @@ void search()
 		scanf("%d",&a); 
 		if(a==1) 
 		{ 
+			//call for input number
 			fflush(stdin);
 			printf("Please Enter the record number: "); 
 			scanf("%d",&b); 
 			printf("\n"); 
 			for(i=0;i<currentExistsRecordsNumber;i++) 
 			{ 
+				//check if record exists
 				if(b==Arr_Item[i].recordnumber) break; 
 			} 
 			if(i<Arr_Item[i].itemnumber){ 
+				//show record
 				printf("Record quered as follows:\n");
 				printf("Record number: 		%d\n", Arr_Item[i].recordnumber);
 				printf("Name: 			%s\n", Arr_Item[i].name);
@@ -79,9 +85,11 @@ void search()
 			printf("\n"); 
 			for(i=0;i<currentExistsRecordsNumber;i++) 
 			{ 
+				//check if record exists
 				if(strcmp(_name,Arr_Item[i].name)==0) break; 
 			} 
 			if(i<currentExistsRecordsNumber){ 
+				//show record
 				printf("Record quered as follows:\n");
 				printf("Record number: 		%d\n", Arr_Item[i].recordnumber);
 				printf("Name: 			%s\n", Arr_Item[i].name);
