@@ -4,8 +4,8 @@
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = main.o YeungHoLun.o
-LINKOBJ  = main.o YeungHoLun.o
+OBJ      = main.o AddNewItems.o Search.o delete.o exportcsv.o display.o modfiy.o sort.o DateOfEditingRecord.o
+LINKOBJ  = main.o AddNewItems.o Search.o delete.o exportcsv.o display.o modfiy.o sort.o DateOfEditingRecord.o
 LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc
 INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
 CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
@@ -27,5 +27,26 @@ $(BIN): $(OBJ)
 main.o: main.c
 	$(CC) -c main.c -o main.o $(CFLAGS)
 
-YeungHoLun.o: YeungHoLun.c
-	$(CC) -c YeungHoLun.c -o YeungHoLun.o $(CFLAGS)
+AddNewItems.o: AddNewItems.c
+	$(CC) -c AddNewItems.c -o AddNewItems.o $(CFLAGS)
+
+Search.o: Search.c
+	$(CC) -c Search.c -o Search.o $(CFLAGS)
+
+delete.o: delete.c
+	$(CC) -c delete.c -o delete.o $(CFLAGS)
+
+exportcsv.o: exportcsv.c
+	$(CC) -c exportcsv.c -o exportcsv.o $(CFLAGS)
+
+display.o: display.c
+	$(CC) -c display.c -o display.o $(CFLAGS)
+
+modfiy.o: modfiy.c
+	$(CC) -c modfiy.c -o modfiy.o $(CFLAGS)
+
+sort.o: sort.c
+	$(CC) -c sort.c -o sort.o $(CFLAGS)
+
+DateOfEditingRecord.o: DateOfEditingRecord.c
+	$(CC) -c DateOfEditingRecord.c -o DateOfEditingRecord.o $(CFLAGS)
