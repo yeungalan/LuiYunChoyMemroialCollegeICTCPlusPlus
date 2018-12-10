@@ -18,4 +18,6 @@ int main(){
 	for(i=0;i<=2;i++){
 		printf("The date <%d> is %d-%d-%d \n",i,dte[i].year,dte[i].month,dte[i].day);
 	}
+	
+	return 0;
 }

@@ -28,4 +28,6 @@ int main(){
 		printf("Employee number is: %d\n",employee[i].number);
 		printf("Salary of employee: %f\n\n",employee[i].salary);
 	}
+	
+	return 0;
 }
